@@ -3,7 +3,17 @@ services:
   bolig-db:
     image: postgres:latest
     ports:
-      - 5432:5432
+      - 5434:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: nest
+    networks:
+      - bolig-network
+  test-db:
+    image: postgres:latest
+    ports:
+      - 5435:5432
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123
