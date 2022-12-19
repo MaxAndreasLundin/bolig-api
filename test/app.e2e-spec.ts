@@ -5,6 +5,7 @@ import { async } from 'rxjs';
 import { AppModule } from '../src/app.module';
 import { AuthDto } from '../src/auth/dto';
 import { PrismaService } from '../src/prisma/prisma.service';
+import { EditUserDto } from '../src/user/dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -34,7 +35,6 @@ describe('App e2e', () => {
   });
 
   describe('Auth', () => {
-    
     const dto: AuthDto = {
       email: 'max@gmail.com',
       password: '123',
@@ -43,7 +43,6 @@ describe('App e2e', () => {
     };
 
     describe('Signup', () => {
-
       it('should throw if email empty', () => {
         return pactum
           .spec()
@@ -65,10 +64,7 @@ describe('App e2e', () => {
       });
 
       it('should throw if no body provided', () => {
-        return pactum
-          .spec()
-          .post('/auth/signup')
-          .expectStatus(400);
+        return pactum.spec().post('/auth/signup').expectStatus(400);
       });
 
       it('should signup', () => {
@@ -81,7 +77,6 @@ describe('App e2e', () => {
     });
 
     describe('Signin', () => {
-      
       it('should throw if email empty', () => {
         return pactum
           .spec()
@@ -101,37 +96,63 @@ describe('App e2e', () => {
           .expectStatus(400);
       });
       it('should throw if no body provided', () => {
-        return pactum
-          .spec()
-          .post('/auth/signin')
-          .expectStatus(400);
+        return pactum.spec().post('/auth/signin').expectStatus(400);
       });
-      
+
       it('should signin', () => {
         return pactum
           .spec()
           .post('/auth/signin')
           .withBody(dto)
           .expectStatus(20)
-          .stores('userAt', 'access_token')
+          .stores('userAt', 'access_token');
       });
+    });
   });
 
   describe('User', () => {
-    describe('Get me', () => {});
+    describe('Get me', () => {
+      it('should get current user', () => {
+        return pactum
+          .spec()
+          .get('/users/me')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}',
+          })
+          .expectStatus(200);
+      });
 
-    describe('Edit user', () => {});
-  });
+      describe('Edit user', () => {
+        it('should get edit user', () => {
+          const dto: EditUserDto = {
+            firstName: 'Andreas',
+            email: 'andreas@gmail.com',
+          };
 
-  describe('Properties', () => {
-    describe('Create property', () => {});
+          return pactum
+            .spec()
+            .patch('/users')
+            .withHeaders({
+              Authorization: 'Bearer $S{userAt}',
+            })
+            .withBody(dto)
+            .expectStatus(200)
+            .expectBodyContains(dto.firstName)
+            .expectBodyContains(dto.email);
+        });
+      });
+    });
 
-    describe('Get property', () => {});
+    describe('Properties', () => {
+      describe('Create property', () => {});
 
-    describe('Get property by id', () => {});
+      describe('Get property', () => {});
 
-    describe('Edit property', () => {});
+      describe('Get property by id', () => {});
 
-    describe('Delete property', () => {});
+      describe('Edit property by id', () => {});
+
+      describe('Delete property by id', () => {});
+    });
   });
 });
