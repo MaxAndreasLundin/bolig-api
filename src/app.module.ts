@@ -2,7 +2,7 @@ import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
-import { PropertyModule } from './property/property.module';
+import { EstateModule } from './estate/estate.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
@@ -12,7 +12,7 @@ import { PrismaModule } from './prisma/prisma.module';
     }),
     AuthModule,
     UserModule,
-    PropertyModule,
+    EstateModule,
     PrismaModule,
   ],
 })

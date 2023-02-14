@@ -144,15 +144,15 @@ describe('App e2e', () => {
     });
 
     describe('Properties', () => {
-      describe('Create property', () => {});
+      describe('Create estate', () => {});
 
-      describe('Get property', () => {});
+      describe('Get estate', () => {});
 
-      describe('Get property by id', () => {});
+      describe('Get estate by id', () => {});
 
-      describe('Edit property by id', () => {});
+      describe('Edit estate by id', () => {});
 
-      describe('Delete property by id', () => {});
+      describe('Delete estate by id', () => {});
     });
   });
 });
