@@ -143,7 +143,7 @@ describe('App e2e', () => {
       });
     });
 
-    describe('Properties', () => {
+    describe('Estates', () => {
       describe('Create estate', () => {});
 
       describe('Get estate', () => {});
