@@ -6,6 +6,7 @@ import { AppModule } from '../src/app.module';
 import { AuthDto } from '../src/auth/dto';
 import { PrismaService } from '../src/prisma/prisma.service';
 import { EditUserDto } from '../src/user/dto';
+import { CreateEstateDto, EditEstateDto } from '../src/estate/dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -144,15 +145,107 @@ describe('App e2e', () => {
     });
 
     describe('Estates', () => {
-      describe('Create estate', () => {});
+      describe('Get empty estates', () => {
+        it('should get estates', () => {
+          return pactum
+            .spec()
+            .get('/estates')
+            .withHeaders({
+              Authorization: 'Bearer $S{userAt}',
+            })
+            .expectStatus(200)
+            .expectBody([]);
+        });
+      });
 
-      describe('Get estate', () => {});
+      describe('Create estate', () => {
+        const dto: CreateEstateDto = {
+          title: 'First Estate',
+          link: 'https://www.youtube.com/watch?v=d6WC5n9G_sM',
+        };
+        it('should create estate', () => {
+          return pactum
+            .spec()
+            .post('/estates')
+            .withHeaders({
+              Authorization: 'Bearer $S{userAt}',
+            })
+            .withBody(dto)
+            .expectStatus(201)
+            .stores('estateId', 'id');
+        });
+      });
 
-      describe('Get estate by id', () => {});
+      describe('Get estates', () => {
+        it('should get estates', () => {
+          return pactum
+            .spec()
+            .get('/estates')
+            .withHeaders({
+              Authorization: 'Bearer $S{userAt}',
+            })
+            .expectStatus(200)
+            .expectJsonLength(1);
+        });
+      });
 
-      describe('Edit estate by id', () => {});
+      describe('Get estate by id', () => {
+        it('should get estate by id', () => {
+          return pactum
+            .spec()
+            .get('/estates/{id}')
+            .withPathParams('id', '$S{estateId}')
+            .withHeaders({
+              Authorization: 'Bearer $S{userAt}',
+            })
+            .expectStatus(200)
+            .expectBodyContains('$S{estateId}');
+        });
+      });
 
-      describe('Delete estate by id', () => {});
-    });
+      describe('Edit estate by id', () => {
+        const dto: EditEstateDto = {
+          title:
+            'Kubernetes Course - Full Beginners Tutorial (Containerize Your Apps!)',
+          description:
+            'Learn how to use Kubernetes in this complete course. Kubernetes makes it possible to containerize applications and simplifies app deployment to production.',
+        };
+        it('should edit estate', () => {
+          return pactum
+            .spec()
+            .patch('/estates/{id}')
+            .withPathParams('id', '$S{estateId}')
+            .withHeaders({
+              Authorization: 'Bearer $S{userAt}',
+            })
+            .withBody(dto)
+            .expectStatus(200)
+            .expectBodyContains(dto.title)
+            .expectBodyContains(dto.description);
+        });
+      });
+
+      describe('Delete estate by id', () => {
+        it('should delete estate', () => {
+          return pactum
+            .spec()
+            .delete('/estates/{id}')
+            .withPathParams('id', '$S{estateId}')
+            .withHeaders({
+              Authorization: 'Bearer $S{userAt}',
+            })
+            .expectStatus(204);
+        });
+
+        it('should get empty estates', () => {
+          return pactum
+            .spec()
+            .get('/estates')
+            .withHeaders({
+              Authorization: 'Bearer $S{userAt}',
+            })
+            .expectStatus(200)
+            .expectJsonLength(0);
+        });
   });
 });
