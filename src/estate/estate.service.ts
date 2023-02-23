@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateEstateDto, EditEstateDto } from './dto';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -14,19 +14,61 @@ export class EstateService {
     });
   }
 
-  getEstateById(userId: number, estateId: number) {}
+  getEstateById(userId: number, estateId: number) {
+    return this.prisma.estate.findFirst({
+      where: {
+        id: estateId,
+        userId,
+      },
+    });
+  }
 
   async createEstate(userId: number, dto: CreateEstateDto) {
-    const estate = await this.prisma.estate.create({
+    return this.prisma.estate.create({
       data: {
         userId,
         ...dto,
       },
     });
-    return estate;
   }
 
-  editEstateById(userId: number, estateId: number, dto: EditEstateDto) {}
+  async editEstateById(userId: number, estateId: number, dto: EditEstateDto) {
+    // get the bookmark by id
+    const estate = await this.prisma.estate.findUnique({
+      where: {
+        id: estateId,
+      },
+    });
 
-  deleteEstateById(userId: number, estateId: number) {}
+    // check if user owns the bookmark
+    if (!estate || estate.userId !== userId)
+      throw new ForbiddenException('Access to resources denied');
+
+    return this.prisma.estate.update({
+      where: {
+        id: estateId,
+      },
+      data: {
+        ...dto,
+      },
+    });
+  }
+
+  async deleteEstateById(userId: number, estateId: number) {
+    const estate = await this.prisma.estate.findUnique({
+      where: {
+        id: estateId,
+      },
+    });
+
+    // check if user owns the bookmark
+    if (!estate || estate.userId !== userId)
+      throw new ForbiddenException('Access to resources denied');
+
+    await this.prisma.estate.delete({
+      where: {
+        id: estateId,
+      },
+    });
+  }
 }

@@ -7,7 +7,7 @@ export class CreateEstateDto {
 
   @IsString()
   @IsOptional()
-  description?: string;
+  description: string;
 
   @IsString()
   @IsNotEmpty()
