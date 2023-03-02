@@ -28,9 +28,16 @@ model Estate {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  title       String
-  description String
-  link        String
+  title           String
+  description     String
+  link            String
+  location        String
+  typeOfResidence String
+  coordinates     String
+
+  price Int
+  room  Int
+  area  Int
 
   userId Int
   user   User @relation(fields: [userId], references: [id])
