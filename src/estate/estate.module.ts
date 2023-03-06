@@ -4,6 +4,6 @@ import { EstateService } from './estate.service';
 
 @Module({
   controllers: [EstateController],
-  providers: [EstateService]
+  providers: [EstateService],
 })
 export class EstateModule {}
