@@ -7,7 +7,9 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async editUser(userId: number, dto: EditUserDto) {
-    const user = await this.prisma.user.update({
+    // delete user.hash;
+
+    return this.prisma.user.update({
       where: {
         id: userId,
       },
@@ -15,8 +17,5 @@ export class UserService {
         ...dto,
       },
     });
-    // delete user.hash;
-
-    return user;
   }
 }

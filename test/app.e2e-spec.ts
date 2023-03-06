@@ -1,7 +1,6 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import * as pactum from 'pactum';
-import { async } from 'rxjs';
 import { AppModule } from '../src/app.module';
 import { AuthDto } from '../src/auth/dto';
 import { PrismaService } from '../src/prisma/prisma.service';
@@ -247,5 +246,7 @@ describe('App e2e', () => {
             .expectStatus(200)
             .expectJsonLength(0);
         });
+      });
+    });
   });
 });
