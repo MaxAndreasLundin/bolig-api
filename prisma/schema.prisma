@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  email String @unique
+  hash  String
+
+  firstName String?
+  lastName  String?
+
+  estates Estate[]
+
+  @@map("users")
+}
+
+model Estate {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  title           String
+  description     String
+  link            String
+  location        String
+  typeOfResidence String
+  coordinates     String
+
+  price Int
+  room  Int
+  area  Int
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  @@map("estates")
+}
