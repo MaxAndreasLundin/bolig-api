@@ -1,6 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { CreateEstateDto, EditEstateDto } from './dto';
 import { PrismaService } from '../prisma/prisma.service';
+import { EstateFilter } from './estate.filter';
 
 @Injectable()
 export class EstateService {
@@ -11,6 +12,12 @@ export class EstateService {
       where: {
         userId,
       },
+    });
+  }
+
+  async getEstatesByCategory(filter: EstateFilter) {
+    return this.prisma.estate.findMany({
+      where: filter,
     });
   }
 

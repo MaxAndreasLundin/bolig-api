@@ -13,6 +13,7 @@ import { JwtGuard } from '../auth/guard';
 import { EstateService } from './estate.service';
 import { GetUser } from '../auth/decorator';
 import { CreateEstateDto, EditEstateDto } from './dto';
+import { EstateFilter } from './estate.filter';
 
 @UseGuards(JwtGuard)
 @Controller('estates')
@@ -22,6 +23,11 @@ export class EstateController {
   @Get()
   getEstates(@GetUser('id') userId: number) {
     return this.estateService.getEstates(userId);
+  }
+
+  @Get('category')
+  getEstatesByCategory(@Body() filter: EstateFilter) {
+    return this.estateService.getEstatesByCategory(filter);
   }
 
   @Get(':id')
