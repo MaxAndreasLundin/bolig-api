@@ -16,8 +16,23 @@ export class EstateService {
   }
 
   async getEstatesByCategory(filter: EstateFilter) {
+    const where: any = {};
+    const filterKeys = Object.keys(filter);
+
+    filterKeys.forEach((key) => {
+      const filterValue = filter[key];
+
+      if (filterValue && key !== 'sort') {
+        if (typeof filterValue === 'object') {
+          where[key] = { ...filterValue };
+        } else {
+          where[key] = { equals: filterValue };
+        }
+      }
+    });
+
     return this.prisma.estate.findMany({
-      where: filter,
+      where,
     });
   }
 

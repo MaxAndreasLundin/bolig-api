@@ -11,9 +11,20 @@ export interface EstateFilter {
 
   coordinates?: string;
 
-  price?: number;
+  price?: {
+    gte?: number;
+    lte?: number;
+  };
 
-  room?: number;
+  room?: {
+    gte?: number;
+    lte?: number;
+  };
 
-  area?: number;
+  area?: {
+    gte?: number;
+    lte?: number;
+  };
+
+  [key: string]: string | number | { gte?: number; lte?: number } | undefined;
 }
