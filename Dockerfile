@@ -36,6 +36,9 @@ COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modul
 
 COPY --chown=node:node . .
 
+COPY --chown=node:node .env .env
+
+
 # Generate Prisma schema
 COPY --chown=node:node prisma ./prisma
 RUN npx prisma generate
