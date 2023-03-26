@@ -6,11 +6,11 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prisma:dev:deploy": "npx prisma migrate deploy",
+    "prisma:dev:deploy": "dotenv -e config/env/.env.dev -- npx prisma migrate deploy",
     "db:dev:up": "docker compose up bolig-db -d",
     "db:dev:rm": "docker compose rm bolig-db -s -f -v",
     "db:dev:restart": "npm run db:dev:rm && npm run db:dev:up && sleep 1 && npm run prisma:dev:deploy",
-    "prisma:test:deploy": "dotenv -e .env.test -- npx prisma migrate deploy",
+    "prisma:test:deploy": "dotenv -e config/env/.env.test -- npx prisma migrate deploy",
     "db:test:up": "docker compose up test-db -d",
     "db:test:rm": "docker compose rm test-db -s -f -v",
     "db:test:restart": "npm run db:test:rm && npm run db:test:up && sleep 1 && npm run prisma:test:deploy",
