@@ -22,18 +22,18 @@ services:
     networks:
       - bolig-network
 
-  app:
-    build: .
-    ports:
-      - "3333:3333"
-    environment:
-      DATABASE_URL: "postgresql://postgres:123@bolig-db:5432/nest?schema=public"
-      JWT_SECRET: "super-secret"
-      PORT: 3333
-    depends_on:
-      - bolig-db
-    networks:
-      - bolig-network
+  #app:
+  #  build: .
+  #  ports:
+  #    - "3333:3333"
+  #  environment:
+  #    DATABASE_URL: "postgresql://postgres:123@bolig-db:5432/nest?schema=public"
+  #    JWT_SECRET: "super-secret"
+  #    PORT: 3333
+  #  depends_on:
+  #    - bolig-db
+  #  networks:
+  #    - bolig-network
 
 networks:
   bolig-network:
