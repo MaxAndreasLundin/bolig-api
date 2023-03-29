@@ -18,7 +18,7 @@ export class EstateService {
 
   async getEstatesByCategory(filter: EstateFilter): Promise<Estate[]> {
     const where: any = {};
-    const filterKeys: string[] = Object.keys(filter);
+    const filterKeys = Object.keys(filter);
 
     filterKeys.forEach((key: string): void => {
       const filterValue = filter[key];
