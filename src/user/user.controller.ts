@@ -9,13 +9,17 @@ import { UserService } from './user.service';
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService) {}
+
   @Get('me')
-  getMe(@GetUser() user: User) {
+  getMe(@GetUser() user: User): User {
     return user;
   }
 
   @Patch()
-  editUser(@GetUser('id') userId: number, @Body() dto: EditUserDto) {
+  editUser(
+    @GetUser('id') userId: number,
+    @Body() dto: EditUserDto,
+  ): Promise<User> {
     return this.userService.editUser(userId, dto);
   }
 }
