@@ -19,7 +19,7 @@ export class UserController {
   editUser(
     @GetUser('id') userId: number,
     @Body() dto: EditUserDto,
-  ): Promise<User> {
+  ): Promise<Partial<User>> {
     return this.userService.editUser(userId, dto);
   }
 }
