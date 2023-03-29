@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   UseGuards,
+  ValidationPipe,
 } from '@nestjs/common';
 import { JwtGuard } from '../auth/guard';
 import { EstateService } from './estate.service';
@@ -25,8 +26,8 @@ export class EstateController {
     return this.estateService.getEstates(userId);
   }
 
-  @Get('category')
-  getEstatesByCategory(@Body() filter: EstateFilter) {
+  @Post('category')
+  getEstatesByCategory(@Body(new ValidationPipe()) filter: EstateFilter) {
     return this.estateService.getEstatesByCategory(filter);
   }
 
