@@ -60,14 +60,12 @@ export class EstateService {
     estateId: number,
     dto: EditEstateDto,
   ): Promise<Estate> {
-    // get the bookmark by id
     const estate = await this.prisma.estate.findUnique({
       where: {
         id: estateId,
       },
     });
 
-    // check if user owns the bookmark
     if (!estate || estate.userId !== userId)
       throw new ForbiddenException('Access to resources denied');
 
@@ -88,7 +86,6 @@ export class EstateService {
       },
     });
 
-    // check if user owns the bookmark
     if (!estate || estate.userId !== userId)
       throw new ForbiddenException('Access to resources denied');
 
