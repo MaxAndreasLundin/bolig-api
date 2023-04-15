@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { ExpressAdapter } from '@nestjs/platform-express';
-import express from 'express';
+import * as express from 'express';
 
 async function createNestApp(expressInstance: express.Express) {
   const app = await NestFactory.create(
