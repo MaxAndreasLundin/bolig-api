@@ -11,7 +11,11 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: ['https://bolig-web.vercel.app', 'http://localhost:3333'],
+    origin: [
+      'https://bolig-web.vercel.app',
+      'http://localhost:3333',
+      'http://localhost:3000',
+    ],
   });
 
   await app.listen(parseInt(process.env.PORT ?? '3000'));
