@@ -1,24 +1,28 @@
 version: '3.8'
 services:
   bolig-db:
-    image: postgres:latest
+    image: mysql:latest
     ports:
-      - "5434:5432"
+      - "3307:3306"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: nest
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: 123
+      MYSQL_DATABASE: nest
+      MYSQL_ROOT_PASSWORD: 123
     networks:
       - bolig-network
+
   test-db:
-    image: postgres:latest
+    image: mysql:latest
     ports:
-      - "5435:5432"
+      - "3308:3306"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
-      POSTGRES_DB: nest
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: 123
+      MYSQL_DATABASE: nest
+      MYSQL_ROOT_PASSWORD: 123
     networks:
       - bolig-network
 networks:
   bolig-network:
+
