@@ -16,7 +16,7 @@
     "db:test:rm": "docker compose rm test-db -s -f -v",
     "db:test:restart": "npm run db:test:rm && npm run db:test:up && sleep 1 && npm run prisma:test:deploy",
     "prebuild": "rimraf dist",
-    "build": "nest build",
+    "build": "dotenv -e config/env/.env.dev nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "dotenv -e config/env/.env.dev nest start --watch",
