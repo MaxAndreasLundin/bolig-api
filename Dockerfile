@@ -28,7 +28,7 @@ COPY --chown=node:node --from=development /usr/src/app/node_modules ./node_modul
 
 COPY --chown=node:node . .
 
-COPY --chown=node:node config/env/.env.prod ./.env
+COPY --chown=node:node config/env/.env.dev ./.env
 ENV ENV_PATH ./.env
 
 COPY --chown=node:node prisma ./prisma

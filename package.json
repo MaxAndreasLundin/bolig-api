@@ -7,7 +7,6 @@
   "license": "UNLICENSED",
   "scripts": {
     "prisma:dev:deploy": "dotenv -e config/env/.env.dev -- npx prisma db push",
-    "prisma:prod:deploy": "dotenv -e config/env/.env.prod -- npx prisma db push",
     "prisma:local:deploy": "dotenv -e config/env/.env.local -- npx prisma db push",
     "db:dev:up": "docker compose up bolig-db -d",
     "db:dev:rm": "docker compose rm bolig-db -s -f -v",
@@ -23,7 +22,6 @@
     "start:dev": "dotenv -e config/env/.env.dev nest start --watch",
     "start:local": "dotenv -e config/env/.env.local nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "dotenv -e config/env/.env.prod node dist/main",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
