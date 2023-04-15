@@ -9,6 +9,11 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
+
+  app.enableCors({
+    origin: ['https://bolig-web.vercel.app', 'http://localhost:3333'],
+  });
+
   await app.listen(parseInt(process.env.PORT ?? '3000'));
 }
 
