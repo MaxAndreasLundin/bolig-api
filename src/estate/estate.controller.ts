@@ -17,11 +17,11 @@ import { CreateEstateDto, EditEstateDto } from './dto';
 import { EstateFilter } from './estate.filter';
 import { Estate } from '@prisma/client';
 
-@UseGuards(JwtGuard)
 @Controller('estates')
 export class EstateController {
   constructor(private estateService: EstateService) {}
 
+  @UseGuards(JwtGuard)
   @Get()
   getEstates(@GetUser('id') userId: number): Promise<Estate[]> {
     return this.estateService.getEstates(userId);
@@ -34,6 +34,7 @@ export class EstateController {
     return this.estateService.getEstatesByCategory(filter);
   }
 
+  @UseGuards(JwtGuard)
   @Get(':id')
   getEstateById(
     @GetUser('id') userId: number,
@@ -42,6 +43,7 @@ export class EstateController {
     return this.estateService.getEstateById(userId, estateId);
   }
 
+  @UseGuards(JwtGuard)
   @Post()
   createEstate(
     @GetUser('id') userId: number,
@@ -50,6 +52,7 @@ export class EstateController {
     return this.estateService.createEstate(userId, dto);
   }
 
+  @UseGuards(JwtGuard)
   @Patch(':id')
   editEstateById(
     @GetUser('id') userId: number,
@@ -59,6 +62,7 @@ export class EstateController {
     return this.estateService.editEstateById(userId, estateId, dto);
   }
 
+  @UseGuards(JwtGuard)
   @Delete(':id')
   deleteEstateById(
     @GetUser('id') userId: number,
