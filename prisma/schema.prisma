@@ -30,7 +30,7 @@ model Estate {
   updatedAt DateTime @updatedAt
 
   title           String
-  description     String
+  description     String @db.Text
   link            String
   location        String
   typeOfResidence String
