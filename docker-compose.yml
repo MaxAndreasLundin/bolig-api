@@ -1,4 +1,3 @@
-version: '3.8'
 services:
   bolig-db:
     image: mysql:latest
@@ -25,4 +24,5 @@ services:
       - bolig-network
 networks:
   bolig-network:
+
 
